@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronFit Studio | Tu Gimnasio</title>
+
+    <!-- Favicon (Logo en la pestaña del navegador) -->
+    <link rel="icon" href="img/ironfit.png" type="image/png">
+    
+    <!-- Google Fonts: Oswald para títulos (fuerte, deportivo) e Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (via CDN para desarrollo rápido) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        oswald: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gym: {
+                            yellow: '#fbbf24', // Amarillo enérgico
+                            dark: '#111827',   // Fondo oscuro
+                            light: '#f3f4f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos base para asegurar buen renderizado */
+        body {
+            background-color: #111827; /* bg-gray-900 */
+            color: #f3f4f6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Efecto parallax suave para el hero */
+        .bg-hero {
+            background-image: linear-gradient(to right, rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.4)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Ocultar barra de desplazamiento pero permitir scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-200">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <!-- ACÁ SE AGREGA EL LOGO (reemplaza el src con el link a tu logo) -->
+                    <img src="https://cdn-icons-png.flaticon.com/512/2964/2964514.png" alt="Logo IronFit" class="h-10 w-auto">
+                    <a href="#" class="font-oswald text-3xl font-bold tracking-wider text-white">
+                        IRON<span class="text-gym-yellow">FIT</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#servicios" class="text-gray-300 hover:text-gym-yellow transition-colors font-semibold">Disciplinas</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gym-yellow transition-colors font-semibold">Planes</a>
+                    <a href="#nosotros" class="text-gray-300 hover:text-gym-yellow transition-colors font-semibold">Instalaciones</a>
+                    <button onclick="openModal()" class="bg-gym-yellow text-gym-dark px-6 py-2 rounded-full font-bold uppercase tracking-wide hover:bg-yellow-300 transition-transform hover:scale-105 shadow-[0_0_15px_rgba(251,191,36,0.3)]">
+                        Empezar Hoy
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (oculto por defecto) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-800 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#servicios" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-gym-yellow hover:bg-gray-800 rounded-md">Disciplinas</a>
+                <a href="#planes" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-gym-yellow hover:bg-gray-800 rounded-md">Planes</a>
+                <a href="#nosotros" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-gym-yellow hover:bg-gray-800 rounded-md">Instalaciones</a>
+                <button onclick="openModal()" class="w-full text-left px-3 py-2 text-base font-bold text-gym-yellow hover:bg-gray-800 rounded-md uppercase mt-4">
+                    Consultar Planes
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-hero h-screen flex items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 mt-16">
+            <span class="text-gym-yellow font-bold tracking-widest uppercase text-sm md:text-base mb-4 block">No es sudor, es tu cuerpo llorando de debilidad</span>
+            <h1 class="font-oswald text-5xl md:text-7xl lg:text-8xl text-white font-bold leading-tight mb-6 uppercase tracking-tighter">
+                Transforma tu <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gym-yellow to-yellow-600">potencial</span> hoy
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+                Instalaciones de primer nivel, entrenadores personalizados y el mejor ambiente para lograr tu mejor versión. Abierto 24/7.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#planes" class="bg-gym-yellow text-gym-dark px-8 py-4 rounded-full font-bold uppercase tracking-wide hover:bg-yellow-300 transition-all hover:scale-105 text-lg shadow-[0_0_20px_rgba(251,191,36,0.4)]">
+                    Asociarme Ahora
+                </a>
+                <button onclick="openModal()" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold uppercase tracking-wide hover:bg-white hover:text-gym-dark transition-all text-lg">
+                    Solicitar Asesoría
+                </button>
+            </div>
+        </div>
+        
+        <!-- Flecha hacia abajo -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#beneficios" class="text-gray-400 hover:text-gym-yellow transition-colors">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Beneficios Rápidos (Barra negra abajo del hero) -->
+    <section id="beneficios" class="bg-black py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-4">
+                    <i class="fas fa-dumbbell text-4xl text-gym-yellow mb-4"></i>
+                    <h3 class="font-oswald text-xl font-bold text-white mb-2 uppercase">Equipamiento Premium</h3>
+                    <p class="text-gray-400 text-sm">Máquinas importadas de última generación para musculación y cardio.</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-clock text-4xl text-gym-yellow mb-4"></i>
+                    <h3 class="font-oswald text-xl font-bold text-white mb-2 uppercase">Abierto 24/7</h3>
+                    <p class="text-gray-400 text-sm">Entrená en el horario que mejor se adapte a tu rutina. Sin excusas.</p>
+                </div>
+                <div class="p-4">
+                    <i class="fas fa-users text-4xl text-gym-yellow mb-4"></i>
+                    <h3 class="font-oswald text-xl font-bold text-white mb-2 uppercase">Coaches Certificados</h3>
+                    <p class="text-gray-400 text-sm">Acompañamiento profesional constante para evitar lesiones y ver resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disciplinas / Clases -->
+    <section id="servicios" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-oswald text-4xl md:text-5xl font-bold text-white mb-4 uppercase">Nuestras <span class="text-gym-yellow">Disciplinas</span></h2>
+                <div class="w-24 h-1 bg-gym-yellow mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjeta 1 -->
+                <div class="group relative overflow-hidden rounded-2xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" alt="Musculación" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="font-oswald text-2xl font-bold text-white uppercase mb-1 group-hover:text-gym-yellow transition-colors">Musculación</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">Zona de pesos libres y máquinas guiadas.</p>
+                    </div>
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="group relative overflow-hidden rounded-2xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=800&auto=format&fit=crop" alt="CrossFit" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="font-oswald text-2xl font-bold text-white uppercase mb-1 group-hover:text-gym-yellow transition-colors">Entrenamiento Funcional</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">Clases dinámicas de alta intensidad.</p>
+                    </div>
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="group relative overflow-hidden rounded-2xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=800&auto=format&fit=crop" alt="Boxeo" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex flex-col justify-end p-6">
+                        <h3 class="font-oswald text-2xl font-bold text-white uppercase mb-1 group-hover:text-gym-yellow transition-colors">Boxeo / Artes Marciales</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">Descarga energía y aprende defensa personal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Precios / Planes -->
+    <section id="planes" class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-oswald text-4xl md:text-5xl font-bold text-white mb-4 uppercase">Elegí tu <span class="text-gym-yellow">Plan</span></h2>
+                <p class="text-gray-400">Sin matrícula de inscripción. Cancela cuando quieras.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
+                
+                <!-- Plan 1 -->
+                <div class="bg-gray-900 rounded-3xl p-8 border border-gray-800 text-center hover:border-gray-600 transition-colors">
+                    <h3 class="font-oswald text-2xl text-white uppercase font-bold mb-4">Pase Diario</h3>
+                    <div class="text-5xl font-bold text-white mb-6">$3.500<span class="text-xl text-gray-500 font-normal">/día</span></div>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-8 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3"></i> Acceso a sala de musculación</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3"></i> Vestuarios y duchas</li>
+                        <li class="flex items-center opacity-50"><i class="fas fa-times text-gray-600 mr-3"></i> Clases grupales</li>
+                    </ul>
+                    <a href="https://wa.me/5491100000000?text=Hola,%20quiero%20comprar%20un%20pase%20diario" target="_blank" class="block w-full py-3 rounded-full border border-gym-yellow text-gym-yellow font-bold uppercase hover:bg-gym-yellow hover:text-black transition-colors">Lo quiero</a>
+                </div>
+
+                <!-- Plan 2 (Destacado) -->
+                <div class="bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-8 border-2 border-gym-yellow text-center transform md:-translate-y-4 shadow-[0_0_30px_rgba(251,191,36,0.15)] relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gym-yellow text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">El más elegido</div>
+                    <h3 class="font-oswald text-2xl text-white uppercase font-bold mb-4 mt-2">Mensual Libre</h3>
+                    <div class="text-5xl font-bold text-gym-yellow mb-6">$18.000<span class="text-xl text-gray-400 font-normal">/mes</span></div>
+                    <ul class="text-gray-300 text-sm space-y-4 mb-8 text-left font-medium">
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3 text-lg"></i> Acceso total 24/7</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3 text-lg"></i> Musculación y Cardio</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3 text-lg"></i> Todas las clases grupales</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3 text-lg"></i> Rutina personalizada</li>
+                    </ul>
+                    <a href="https://wa.me/5491100000000?text=Hola,%20quiero%20asociarme%20con%20el%20plan%20Mensual%20Libre" target="_blank" class="block w-full py-4 rounded-full bg-gym-yellow text-black font-bold uppercase hover:bg-yellow-400 hover:scale-105 transition-transform shadow-lg">Asociarme Ahora</a>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="bg-gray-900 rounded-3xl p-8 border border-gray-800 text-center hover:border-gray-600 transition-colors">
+                    <h3 class="font-oswald text-2xl text-white uppercase font-bold mb-4">Plan Semestral</h3>
+                    <div class="text-5xl font-bold text-white mb-2">$90.000</div>
+                    <div class="text-gym-yellow text-sm font-bold mb-6">Ahorrás 1 mes y medio</div>
+                    <ul class="text-gray-400 text-sm space-y-4 mb-8 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3"></i> Acceso total 24/7</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3"></i> Incluye todos los beneficios</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gym-yellow mr-3"></i> Congelás el precio</li>
+                    </ul>
+                    <a href="https://wa.me/5491100000000?text=Hola,%20me%20interesa%20el%20plan%20semestral" target="_blank" class="block w-full py-3 rounded-full border border-gym-yellow text-gym-yellow font-bold uppercase hover:bg-gym-yellow hover:text-black transition-colors">Consultar</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Instalaciones / Carrusel -->
+    <section id="nosotros" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-oswald text-4xl md:text-5xl font-bold text-white mb-4 uppercase">Nuestras <span class="text-gym-yellow">Instalaciones</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Más de 1000m² dedicados a tu entrenamiento. Equipamiento Matrix de última generación, zonas de peso libre, cardio y salones de usos múltiples.</p>
+            </div>
+
+            <!-- Contenedor del Carrusel (Scroll Snap) -->
+            <div class="relative w-full group max-w-[1000px] mx-auto">
+                <!-- Indicador de que se puede deslizar (solo visible en mobile) -->
+                <div class="md:hidden text-center text-gym-yellow text-sm mb-4 animate-pulse flex items-center justify-center gap-2">
+                    <i class="fas fa-hand-pointer"></i> Deslizá para ver más <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Flecha Izquierda -->
+                <button id="btn-prev" class="hidden md:flex absolute -left-6 top-[40%] z-10 bg-gray-800 hover:bg-gym-yellow text-white hover:text-black w-12 h-12 rounded-full items-center justify-center transition-all border border-gray-600 hover:border-gym-yellow shadow-lg transform -translate-y-1/2 opacity-0 group-hover:opacity-100 focus:opacity-100">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 no-scrollbar scroll-smooth" id="carousel">
+                    <!-- Foto 1 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[600px] rounded-2xl overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" alt="Zona de Pesas" class="w-full h-64 md:h-96 object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-6 pointer-events-none">
+                            <h4 class="font-oswald text-xl font-bold text-white uppercase">Zona de Pesos Libres</h4>
+                        </div>
+                    </div>
+                    <!-- Foto 2 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[600px] rounded-2xl overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1200&auto=format&fit=crop" alt="Cintas de correr" class="w-full h-64 md:h-96 object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-6 pointer-events-none">
+                            <h4 class="font-oswald text-xl font-bold text-white uppercase">Área de Cardio</h4>
+                        </div>
+                    </div>
+                    <!-- Foto 3 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[600px] rounded-2xl overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1200&auto=format&fit=crop" alt="Crossfit Box" class="w-full h-64 md:h-96 object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-6 pointer-events-none">
+                            <h4 class="font-oswald text-xl font-bold text-white uppercase">Box Funcional</h4>
+                        </div>
+                    </div>
+                    <!-- Foto 4 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[600px] rounded-2xl overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1200&auto=format&fit=crop" alt="Vestuarios" class="w-full h-64 md:h-96 object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-6 pointer-events-none">
+                            <h4 class="font-oswald text-xl font-bold text-white uppercase">Vestuarios Premium</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flecha Derecha -->
+                <button id="btn-next" class="hidden md:flex absolute -right-6 top-[40%] z-10 bg-gray-800 hover:bg-gym-yellow text-white hover:text-black w-12 h-12 rounded-full items-center justify-center transition-all border border-gray-600 hover:border-gym-yellow shadow-lg transform -translate-y-1/2 opacity-0 group-hover:opacity-100 focus:opacity-100">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Ubicación -->
+    <footer class="bg-gray-900 pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <a href="#" class="font-oswald text-3xl font-bold tracking-wider text-white mb-6 block">
+                        IRON<span class="text-gym-yellow">FIT</span>
+                    </a>
+                    <p class="text-gray-400 text-sm mb-6">Transformando cuerpos y mentes desde 2015. El mejor equipamiento y ambiente de la ciudad.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6">Contacto</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-gym-yellow"></i> Av. Siempre Viva 1234, Ciudad</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-3 text-gym-yellow"></i> +54 9 11 1234-5678</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-gym-yellow"></i> info@ironfitstudio.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6">Horarios</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex justify-between border-b border-gray-800 pb-2"><span>Lunes a Viernes</span> <span class="text-white">Abierto 24hs</span></li>
+                        <li class="flex justify-between border-b border-gray-800 pb-2 pt-2"><span>Sábados</span> <span class="text-white">08:00 - 22:00</span></li>
+                        <li class="flex justify-between pt-2"><span>Domingos</span> <span class="text-white">09:00 - 14:00</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-t border-gray-800 pt-8 text-gray-500 text-xs">
+                <p>&copy; 2026 IronFit Studio. Todos los derechos reservados. | Diseño web por <span class="text-gym-yellow">Tu Agencia</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón de WhatsApp Flotante -->
+    <a href="https://wa.me/5491100000000?text=Hola,%20estoy%20viendo%20la%20página%20web%20y%20quiero%20más%20info" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-[0_4px_14px_rgba(37,211,102,0.5)] hover:scale-110 hover:bg-[#1ebd5b] transition-all z-50">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Modal de Asesoramiento / Consulta -->
+    <div id="turno-modal" class="fixed inset-0 bg-black bg-opacity-80 z-[100] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-black">
+                <h3 class="font-oswald text-2xl text-white uppercase font-bold">Asesoramiento</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-300 text-sm mb-6">Dejanos tus datos y un coach se contactará por WhatsApp para recomendarte el mejor plan para vos.</p>
+                <form onsubmit="enviarWhatsApp(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nombre Completo</label>
+                        <input type="text" id="form-nombre" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gym-yellow focus:ring-1 focus:ring-gym-yellow transition-colors" placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Celular (WhatsApp)</label>
+                        <input type="tel" id="form-celular" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gym-yellow focus:ring-1 focus:ring-gym-yellow transition-colors" placeholder="+54 9 11 ...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tu objetivo principal</label>
+                        <select id="form-objetivo" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gym-yellow focus:ring-1 focus:ring-gym-yellow transition-colors">
+                            <option>Ganar masa muscular</option>
+                            <option>Bajar de peso / Definir</option>
+                            <option>Mejorar mi salud y resistencia</option>
+                            <option>Entrenar un deporte específico</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-gym-yellow text-black font-bold uppercase tracking-wide py-4 rounded-lg mt-4 hover:bg-yellow-400 transition-colors flex justify-center items-center">
+                        <span id="btn-text">Enviar Consulta</span>
+                        <i id="btn-spinner" class="fas fa-circle-notch fa-spin hidden ml-2"></i>
+                    </button>
+                </form>
+                
+                <!-- Mensaje de éxito oculto -->
+                <div id="success-msg" class="hidden text-center py-6">
+                    <div class="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-xl mb-2">¡Consulta enviada!</h4>
+                    <p class="text-gray-400 text-sm">En breve uno de nuestros coaches te escribirá por WhatsApp para asesorarte.</p>
+                    <button onclick="closeModal()" class="mt-6 text-gym-yellow hover:text-white underline text-sm">Cerrar ventana</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="main.js" defer></script>
+</body>
+</html>
