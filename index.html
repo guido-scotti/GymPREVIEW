@@ -316,34 +316,41 @@
     <!-- Footer / Ubicación -->
     <footer class="bg-gray-900 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                
+                <!-- Columna 1 -->
+                <div class="flex flex-col items-center md:items-start">
                     <a href="#" class="font-oswald text-3xl font-bold tracking-wider text-white mb-6 block">
                         IRON<span class="text-gym-yellow">FIT</span>
                     </a>
-                    <p class="text-gray-400 text-sm mb-6">Transformando cuerpos y mentes desde 2015. El mejor equipamiento y ambiente de la ciudad.</p>
-                    <div class="flex space-x-4">
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">Transformando cuerpos y mentes desde 2015. El mejor equipamiento y ambiente de la ciudad.</p>
+                    <div class="flex space-x-4 justify-center md:justify-start w-full">
                         <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=San+Fernando+100,+Ciudad" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors"title="Cómo llegar"><i class="fas fa-map-marker-alt"></i></a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=San+Fernando+100,+Ciudad" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-gym-yellow hover:bg-gray-700 transition-colors" title="Cómo llegar"><i class="fas fa-map-marker-alt"></i></a>
                     </div>
                 </div>
-                <div>
-                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6">Contacto</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-gym-yellow"></i> Av. Siempre Viva 1234, Ciudad</li>
-                        <li class="flex items-center"><i class="fas fa-phone mr-3 text-gym-yellow"></i> +54 9 11 1234-5678</li>
-                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-gym-yellow"></i> info@ironfitstudio.com</li>
+
+                <!-- Columna 2: Contacto -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6 w-full">Contacto</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm w-full">
+                        <li class="flex items-start justify-center md:justify-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-gym-yellow"></i> <span>Av. Siempre Viva 1234, Ciudad</span></li>
+                        <li class="flex items-center justify-center md:justify-start"><i class="fas fa-phone mr-3 text-gym-yellow"></i> +54 9 11 1234-5678</li>
+                        <li class="flex items-center justify-center md:justify-start"><i class="fas fa-envelope mr-3 text-gym-yellow"></i> info@ironfitstudio.com</li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6">Horarios</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
+
+                <!-- Columna 3: Horarios -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="font-oswald text-xl text-white font-bold uppercase mb-6 w-full">Horarios</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm w-full max-w-[260px] mx-auto md:mx-0">
                         <li class="flex justify-between border-b border-gray-800 pb-2"><span>Lunes a Viernes</span> <span class="text-white">Abierto 24hs</span></li>
                         <li class="flex justify-between border-b border-gray-800 pb-2 pt-2"><span>Sábados</span> <span class="text-white">08:00 - 22:00</span></li>
                         <li class="flex justify-between pt-2"><span>Domingos</span> <span class="text-white">09:00 - 14:00</span></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="text-center border-t border-gray-800 pt-8 text-gray-500 text-xs">
                 <p>&copy; 2026 IronFit Studio. Todos los derechos reservados. | Diseño web por <span class="text-gym-yellow">Guido Scotti</span></p>
             </div>
